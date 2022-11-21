@@ -49,3 +49,95 @@
 
 ### Stream流API使用
 
+- 数据准备，准备实体类Person和Hobby类如下
+
+  ```java
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public class Person {
+      private String name;
+      private Integer age;
+      private List<Hobby> hobbyList;
+  }
+  ```
+
+  ```java
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public class Hobby {
+      private String hobbyName;
+      private String hobbyContent;
+  }
+  
+  ```
+
+- 测试类准备如下数据
+
+```java
+  List<Hobby> hobbyList = Arrays.asList(
+            new Hobby("play", "玩游戏玩游戏玩游戏"),
+            new Hobby("watch", "看电视剧看电视剧"),
+            new Hobby("exercise", "锻炼锻炼锻炼"));
+
+    List<Hobby> hobbyList1 = Arrays.asList(
+            new Hobby("play", "玩游戏玩游戏玩游戏"),
+            new Hobby("work", "上班狂人"));
+
+    List<Hobby> hobbyList2 = Arrays.asList(
+            new Hobby("play", "玩游戏玩游戏玩游戏"),
+            new Hobby("watch", "看电视剧看电视剧"));
+
+    List<Person> personList = Arrays.asList(new Person("小明", 18, hobbyList),
+            new Person("小王", 20, hobbyList1),
+            new Person("小红", 16, hobbyList2));
+    Person ming = new Person("小明", 18, hobbyList);
+    Person wang = new Person("小王", 20, hobbyList1);
+    Person hong = new Person("小红", 16, hobbyList2);
+```
+
+
+
+#### 开始管道
+
+##### 1.集合直接创建Stream流
+
+```
+        List<Person> list = personList.stream().collect(Collectors.toList());
+        list.forEach(people -> {
+            System.out.println(people);
+        });
+```
+
+
+
+##### 2.元素创建Stream流
+
+```
+   List<Person> list2 = Stream.of(ming, wang, hong).collect(Collectors.toList());
+        list2.forEach(people -> {
+            System.out.println(people);
+        });
+```
+
+
+
+##### 3.创建并行流
+
+```
+        List<Person> list3 = personList.parallelStream().filter(person -> {
+            System.out.println(Thread.currentThread().getName());
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (person.getAge() < 18) return false;
+            return true;
+        }).collect(Collectors.toList());
+        list3.forEach(people -> {
+            System.out.println(people);
+        });
+```
+
