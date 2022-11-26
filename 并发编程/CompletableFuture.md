@@ -2,10 +2,6 @@
 
 
 
-
-
-
-
 ## Future
 
 ​	在JDK8之前，要想使用多线程处理带返回值的任务，只能使用callable得到Future对象，Future对象可以监视目标线程调用call的情况，通过get方法阻塞获取结果。
