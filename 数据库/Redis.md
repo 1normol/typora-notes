@@ -163,3 +163,4 @@ appendfsync no        #让操作系统决定何时进行同步
 - 通过canal订阅mysql的binlog日志，拿到具体操作的数据。再根据数据，去删除对应的缓存。
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_jpg/gB9Yvac5K3OezNCibL5S9oyeYqJBQVZCowjAarwD2g3lIfCPsvhEHGaohPHVa47GR9d1GUgj0Eta1ketClKZjfw/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
+
